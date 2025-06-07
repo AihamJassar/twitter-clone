@@ -4,7 +4,7 @@ const { generateTokenAndSetCookie } = require("../lib/utils/generateToken");
 
 exports.signup = async (req, res) => {
   try {
-    const { username, fallName, password, email } = req.body;
+    const { username, fullName, password, email } = req.body;
 
     emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
@@ -32,7 +32,7 @@ exports.signup = async (req, res) => {
 
     const newUser = new User({
       username,
-      fallName,
+      fullName,
       email,
       password: hashedPassword,
     });
@@ -42,7 +42,7 @@ exports.signup = async (req, res) => {
       await User.create(newUser);
       res.status(201).json({
         _id: newUser._id,
-        fullName: newUser.fallName,
+        fullName: newUser.fullName,
         username: newUser.username,
         email: newUser.email,
         followers: newUser.followers,
@@ -76,7 +76,7 @@ exports.login = async (req, res) => {
 
     res.status(200).json({
       _id: user._id,
-      fullName: user.fallName,
+      fullName: user.fullName,
       username: user.username,
       email: user.email,
       followers: user.followers,
@@ -103,7 +103,7 @@ exports.logout = async (req, res) => {
 exports.getMe = async (req, res) => {
   try {
     const user = await User.findById(req.user._id).select("-password");
-    res.status(200).json({ user });
+    res.status(200).json( user );
   } catch (error) {
     console.log("Error in getMe controller", error.message);
     res.status(500).json({ error: "Internal Server Error" });

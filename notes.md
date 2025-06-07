@@ -23,3 +23,6 @@
 
 
   Generate token: git bush> openssl rand -base64 32
+
+  tanStack query => caching data
+  react hot toast => for notifications

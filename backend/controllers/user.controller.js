@@ -40,7 +40,7 @@ exports.getSuggestedUsers = async (req, res) => {
 
     suggestedUsers.forEach((user) => (user.password = null));
 
-    res.status(200).json({ suggestedUsers });
+    res.status(200).json(suggestedUsers);
   } catch (error) {
     console.log(`Error ${error.message}`);
     res.status(500).json({ error: "Internal Server Error" });
@@ -89,7 +89,7 @@ exports.updateUser = async (req, res) => {
   try {
     const {
       username,
-      fallName,
+      fullName,
       email,
       currentPassword,
       newPassword,
@@ -139,7 +139,7 @@ exports.updateUser = async (req, res) => {
     }
 
     user.username = username || user.username;
-    user.fallName = fallName || user.fallName;
+    user.fullName = fullName || user.fullName;
     user.email = email || user.email;
     user.bio = bio || user.bio;
     user.link = link || user.link;
